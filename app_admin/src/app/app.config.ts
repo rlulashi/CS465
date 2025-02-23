@@ -1,11 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from "@angular/core";
 import { provideRouter } from "@angular/router";
-import { provideHttpClient } from "@angular/common/http";
+import { HttpClientModule, provideHttpClient } from "@angular/common/http";
 
 import { routes } from "./app.routes";
+import { authInterceptProvider } from "./utils/jwt.interceptor";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient()
-    
+  providers: [
+    provideRouter(routes), 
+    provideHttpClient(),
+    importProvidersFrom(HttpClientModule),
+    authInterceptProvider    
   ]
 };
